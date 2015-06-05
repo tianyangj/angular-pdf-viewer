@@ -18,7 +18,7 @@ angular.module('pdf')
     var headers = $scope.$eval($attrs.headers);
     var pdfDoc;
     $scope.pageCount = 0;
-    var currentPage = 1;
+    var currentPage = $scope.$eval($attrs.initialPage) || 1;
     var angle = 0;
     var scale = $attrs.scale ? $attrs.scale : 1;
     var canvas = $element.find('canvas')[0];
@@ -134,7 +134,7 @@ angular.module('pdf')
         .then(function (_pdfDoc) {
 
           pdfDoc = _pdfDoc;
-          renderPage(1);
+          renderPage(currentPage);
           $scope.$apply(function() {
             $scope.pageCount = _pdfDoc.numPages;
           });
